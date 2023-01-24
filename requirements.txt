@@ -1,0 +1,6 @@
+datetime
+undetected_chromedriver
+selenium
+bs4
+pandas
+pyautogui

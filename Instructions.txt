@@ -1,0 +1,14 @@
+- run the bot.exe file
+- write the keyword then press enter
+- write the city name, it should be precise (like chicago, salt lake, colorado etc.)
+- then press enter
+- please leave the computer and don't disturb the mouse, bot needs to control the mouse till it starts its process.
+- it will take less than 1 minute
+- after that you can use your pc.
+- bot will take some time to complete the session, you can check the progress on the chrome browser and bot tab.
+- at the end, all the data will be updated in the two files, separately (comments.csv, posts.csv)
+- bot requires a dummy account, you can change login credentials in the text file
+- if you face any problem, just message me on fiverr.
+
+Regards,
+Hamza
