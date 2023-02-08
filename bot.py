@@ -1,3 +1,4 @@
+import logging
 
 try:
     import time
@@ -280,26 +281,19 @@ def get_posts(keyword, location):
             print("location Bar 2 Clicked")
 
         try:
-            print("Selecting button by mouse")
-            #selecting the first location option using mouse
-            with open("mouse_points.txt", "r") as f:
-                lines = f.readlines()
-                x_coordinate = int(lines[0])
-                y_coordinate = int(lines[1])
-            # print("points: ", x_coordinate, y_coordinate)
-            # print("type: ", type(x_coordinate), type(y_coordinate))
+            print("test")
+            time.sleep(3)
+            driver.find_element(By.XPATH, "//div[@class='x1e558r4']/following-sibling::div").click()
+
+            #alter"//li[@id='106578779375574']/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]"
 
         except Exception as e:
-            print("While opening mouse points file:", e)
+            print("Error while selecting location: ", e)
+            pass
 
-        try:
-            time.sleep(2)
-            pyautogui.moveTo(x_coordinate, y_coordinate, duration=1)
-            print("Mouse Position :", pyautogui.position())
-            pyautogui.click()
-            print("Button Selected by mouse")
-        except Exception as e:
-            print("Error while clicking mouse :", e)
+
+
+
 
     except Exception as e:
         #Main try
@@ -392,28 +386,65 @@ def get_pofile_location(profile_url):
     :param profile_url:
     :return: string location of profile
     '''
-    try:
-        time.sleep(1)
-        driver.get(profile_url)
-        time.sleep(2)
-        #twice
-        driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-        driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-        user_soup = BeautifulSoup(driver.page_source, "html.parser")
-        try:
-            #lives in
-            locations=user_soup.find_all("span", class_="xt0psk2")
-            location=locations[1].text
-        except:
-            #From
-            locations=user_soup.find_all("span", class_="xt0psk2")
-            location=locations[2].text
+    img1 = "https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/VMZOiSIJIwn.png"
+    img2 = "https://static.xx.fbcdn.net/rsrc.php/v3/yc/r/-e1Al38ZrZL.png"
 
-    except Exception as e:
-        print("Error while gettig location of profile: ", e)
-        location="na"
-        pass
-    return (location)
+    time.sleep(1)
+    driver.get(profile_url)
+    time.sleep(2)
+    # twice
+    for z in range(0,4):
+        driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+
+
+    for p in range(0, 2):
+        if p == 0:
+            img = img1
+        if p == 1:
+            img = img2
+        for l in range(0,13):
+            try:
+                if l == 0:
+                    ltemp = driver.find_element(By.XPATH,
+                                                "/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[1]/div[2]/div/div[1]/div/div/div/div/div[2]/div/div/ul/div/div[1]/img").get_attribute(
+                        'src')
+
+                    if ltemp == img:
+                        location = driver.find_element(By.XPATH,
+                                                       "/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[1]/div[2]/div/div[1]/div/div/div/div/div[2]/div/div/ul/div/div[2]/div/div/span/a/span/span").text
+                        print(location)
+                        return location
+
+                else:
+                    ltemp = driver.find_element(By.XPATH,
+                                                "/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[1]/div[2]/div/div[1]/div/div/div/div/div[2]/div/div/ul/div[" + str(
+                                                    l) + "]/div[1]/img").get_attribute(
+                        'src')
+                    if ltemp == img:
+                        location = driver.find_element(By.XPATH,
+                                                       "/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[1]/div[2]/div/div[1]/div/div/div/div/div[2]/div/div/ul/div[" + str(
+                                                           l) + "]/div[2]/div/div/span/a/span/span").text
+                        print(location)
+                        return location
+            except:
+
+                pass
+    print("Error while getting location of this profile")
+    location = "na"
+    print(location)
+    return location
+
+
+
+
+
+
+
+
+
+
+
+
 
 def main():
     try:
